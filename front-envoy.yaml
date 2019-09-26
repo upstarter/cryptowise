@@ -1,0 +1,148 @@
+static_resources:
+  listeners:
+  - address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 80
+    listener_filters:
+      - name: "envoy.listener.tls_inspector"
+        typed_config: {}
+    filter_chains:
+    - filter_chain_match:
+        server_names: ["cryptowise.ai", "www.cryptowise.ai"]
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            - certificate_chain:
+                filename: "/etc/cryptowise-ai.pem"
+              private_key:
+                filename: "/etc/cryptowise-ai.key"
+    - filters:
+      - name: envoy.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+          stat_prefix: ingress_http
+          access_log:
+            - name: envoy.file_access_log
+              config:
+                path: "/var/log/access.log"
+          route_config:
+            virtual_hosts:
+            - name: backend
+              domains:
+              - ["*.cryptowise.ai","cryptowise.ai"]
+              routes:
+              - match:
+                  prefix: "/"
+                redirect:
+                  path_redirect: "/"
+                  https_redirect: true
+          http_filters:
+            - name: envoy.router
+              config: {}
+    - filter_chain_match:
+        server_names: ["api.cryptowise.ai"]
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            - certificate_chain:
+                filename: "/etc/cryptowise-ai.pem"
+              private_key:
+                filename: "/etc/cryptowise-ai.key"
+      filters:
+      - name: envoy.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+          stat_prefix: ingress_http
+          route_config:
+            virtual_hosts:
+            - name: umbrella
+              domains:
+              - ["*.cryptowise.ai","cryptowise.ai"]
+              routes:
+              - match:
+                  prefix: "/v1"
+                route:
+                  cluster: api
+          http_filters:
+          - name: envoy.router
+            config: {}
+  - address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 443
+    listener_filters:
+      - name: "envoy.listener.tls_inspector"
+        typed_config: {}
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          access_log:
+            - name: envoy.file_access_log
+              config:
+                path: "/var/log/access.log"
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: backend
+              domains:
+              - ["*.cryptowise.ai","cryptowise.ai"]
+              routes:
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: frontend
+              - match:
+                  prefix: "/v1"
+                route:
+                  cluster: api
+          http_filters:
+          - name: envoy.router
+            config: {}
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            - certificate_chain:
+                filename: "/etc/cryptowise-ai.pem"
+              private_key:
+                filename: "/etc/cryptowise-ai.key"
+
+  clusters:
+  - name: frontend
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    # http2_protocol_options: {}
+    hosts:
+    - socket_address:
+        address: frontend
+        port_value: 80
+  - name: api
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    # http2_protocol_options: {}
+    hosts:
+    - socket_address:
+        address: umbrella
+        port_value: 80
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001
+
+# Destroy your Docker Compose stack with
+# docker-compose down
+
+# then rebuild it with
+# docker-compose up --build -d.
+
+# Make a few requests to your services using curl, then log into a shell with
+# docker-compose exec front-envoy /bin/bash
+
+# An access.log file should be in /var/log, showing the results of your requests.

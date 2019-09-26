@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Time Series Forecasting with Deep Learning Models}
+\author{Ryan Silva, Eric Steen, Orion Darley – Stanford University }
+\date{May 2019}
+
+\usepackage{dirtytalk}
+\usepackage{titlesec}
+% \setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+\usepackage{multicol}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={190mm,257mm},
+ left=11mm,
+ top=20mm,
+ }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Deep Learning models are increasingly used for a variety of time series forecasting applications and show significant promise as the industry-leading methodology for the foreseeable future, as previously used methods can be integrated into them easily. In this research, Deep Recurrent Neural Networks(RNN) with Long Short Term Memory(LSTM) are explored to handle the problem of uncertainty in Bitcoin(BTC) prices. We evaluate their efficacy in relation to more generally accepted time series approaches, in particular the (S)AR(I)MA(X) models.
+\end{abstract}
+
+\begin{multicols}{2}
+\section{Introduction}
+ We apply deep learning to a duple of tactical parameters: lookback period and forecast length, hereby denoted as $\langle wlen, flen \rangle$ for window length and forecast length respectively. We execute a two-pronged strategy:
+\begin{enumerate}
+\item We use a discrete binary classification RNN model to determine the optimal hold period $flen$ for a position held over a given $wlen$ randomly searched from a set of $\langle wlen, flen \rangle$ pairs in the range wlen in 1-480 days, flen in 1-20 days (swing trade range).
+\item We then use a continuous Prediction RNN model to predict the price following the optimal tactical parameters discovered in step 1.
+\end{enumerate}
+Minimization of hold period is highly desirable for a trading program when risk \& return characteristics are in parity across a set of tactical parameters as minimization reduces value-at-risk in aggregate. Having a sensible target price aids in tactical trading decisions such as risk-return calculations and exit point determination.
+
+
+\section{Related Work}
+Several papers are relevant to our work including the R2N2 paper \cite{1_website}  which covered x,y...
+
+\section{Methods}
+\subsection{Dataset}
+Our dataset consists of the following:
+\begin{enumerate}
+    \item Bitcoin prices on a daily basis since 2012
+    \item Bitcoin prices on an hourly basis since july 2017
+\end{enumerate}
+
+
+\subsubsection{Scaling}
+\paragraph{Classification Model}
+We scale the both the price and volume series to adjust the range of values to be gaussian with zero mean and unit variance, without changing the distribution. This will prevent a feature with high variance that is orders of magnitude higher than other features from dominating and making the estimator unable to learn from other features correctly.
+\paragraph{Prediction Model}
+Ryan
+
+\subsubsection{Regularization}
+We regard the old wall street maxim "The trend is your friend" to be a good starting point for the evaluation of deep learning on exchange traded financial assets. So in order to reduce noise that might prevent the machine learning algorithm from learning the trend, we regularize both the classification and Prediction Model series data using a Kalman filter with the \href{https://pykalman.github.io/}{pykalman} library.
+
+
+\paragraph{Kalman Filter}
+The Kalman filter process has two steps:
+\begin{itemize}
+\item The prediction step, which uses a previously estimated state and
+  the Prediction Model to predict the value of the next state as well as
+  the states estimated covariance.
+
+\item The update step, which uses the current output together with the statistical properties of the model, to
+  correct the state estimate. The values calculated are the innovation
+  covariance, the Kalman gain resulting in the updated state estimate
+  and state estimate covariance.
+\end{itemize}
+
+
+\subsubsection{Preprocessing}
+\paragraph{Classification Model}
+Eric TODO (windowing and balancing the data) \cite{4_website}
+\paragraph{Prediction Model}
+Ryan TODO
+
+
+\subsection{Feature Engineering}
+We explore a variety of data preprocessing and augmentation techniques gathered from the literature, and implement them as part of our EDA (Exploratory Data Analysis). Our EDA includes the following:
+\paragraph{Classification Model}
+Price and Volume were used in the classification model for simplicity to ensure model sensitivity to the most widely distributed data features in the financial asset space.
+
+\say{Everything should be made as simple as possible, but not simpler. } - Albert Einstein
+
+\paragraph{Prediction Model}
+Ryan TODO (ta library) \cite{3_website}.
+
+
+\subsection{Activation, Loss}
+\paragraph{Classification Model}
+Eric TODO (windowing and balancing the data) \cite{4_website}
+\paragraph{Prediction Model}
+Ryan TODO (ta library) \cite{3_website}.
+
+We plan to use the root mean squared error (RMSE) between predicted and true financial time series as the cost function and evaluation metric for our models, as implemented in the EDA notebook. We also plan to build out a data pipeline using simple data stores (redis or sqlite).
+
+
+\subsection{Hyperparameter Tuning}
+The hyperparameter decisions that were most effective at tuning the model were smaller number of hidden units per layer, dropout, scaling and normalizing the data in the pre-processing step, learning rate, and batch normalization.
+\subsubsection{Batch Size}
+\paragraph{Classification Model}
+Due to the 'small data' nature of our inquiry, a lower batch size of 64 for the binary model sufficed.
+\paragraph{Prediction Model}
+A batch size of 32 was adequate for the Prediction Model.
+\subsubsection{Learning Rate}
+\paragraph{Classification Model}
+Many learning rates were tried in the range .1 - .00001 with .001 being preferable
+\paragraph{Prediction Model}
+.001
+\subsubsection{Dropout}
+\paragraph{Classification Model}
+A dropout ratio of 0.4 improved the volatility of the classification model significantly from baseline (sans any regularization).
+\paragraph{Prediction Model}
+The Prediction Model (Ryan)...
+\subsubsection{Hidden Units}
+\paragraph{Classification Model}
+Given the 'small data' nature of our inquiry, a lower number of units was most effective for increasing accuracy, reducing loss, and decreasing overall volatility of metrics.
+\paragraph{Prediction Model}
+\subsection{Tactical Parameters}
+Our research showed a 120 period window with a forecast period of 3 gave the greatest accuracy with the lowest loss and the least volatility of all other tested combinations, taking into account risk-parity considerations (4 periods showed very similar results, with slightly more stability in accuracy across epochs, but 3 gives less value-at-risk in practical application in finance).
+
+\subsection{Results}
+\subsubsection{Classification Model}
+Our supervised learning approach indicates that a 120 period window with a forecast period of 3 was the optimal random swing trade for bitcoin since 10/11/2015. While this may change in the future, we are optimistic that additional data and feature engineering, novel approaches, and additional human insights will enhance the trading tactics disclosed herein.
+\subsubsection{Prediction Model}
+Ryan
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{download}
+\caption{Our Results}
+\label{fig:download}
+\end{figure}
+
+\section{Conclusions}
+Deep Recurrent Neural Networks are effective in tactical trading decision making support .
+% \section{Analysis}
+% ``Time Series, in conjunction with deep neural nets is a win, win proposition for quantitative analysis of cryptoassets.'' \citep{adams1995hitchhiker}
+\section{Future Work}
+
+\section{Code}
+Our code is at \url{https://github.com/ericsteen/crypto_data}
+The code of particular interest is in \verb price_rnn.py  and \verb data_experiments.ipynb. Data gathering scripts are located in /lib as well.
+
+\end{multicols}
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
