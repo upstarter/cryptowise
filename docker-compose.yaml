@@ -32,7 +32,7 @@ services:
     networks:
       envoymesh:
         aliases:
-          - frontend
+          - frontendservice
     environment:
       - SERVICE_NAME=frontend
     # logging:
@@ -45,15 +45,15 @@ services:
       context: ./platform_umbrella
       dockerfile: Dockerfile
     volumes:
-      - ./umbrella-envoy.yaml:/etc/umbrella-envoy.yaml
+      - ./api-envoy.yaml:/etc/api-envoy.yaml
     networks:
       envoymesh:
         aliases:
-          - umbrella
+          - apiservice
     # logging:
     #   driver: gcplogs
     environment:
-      - SERVICE_NAME=umbrella
+      - SERVICE_NAME=api
     # depends_on:
     #   - cloud-sql-proxy
     expose:
@@ -86,4 +86,7 @@ networks:
 # alias pull='git clone --recurse-submodules git@github.com:upstarter/cryptowise.git'
 # b() {
 # dcd; rmc; pull; cd cryptowise; dcu;
-# }" >> ~/.bashrc
+# }
+# alias dfe='docker ps -aqf "name=cryptowise_front-envoy"'
+# alias dfu='docker ps -aqf "name=cryptowise_umbrella"'
+#" >> ~/.bashrc
