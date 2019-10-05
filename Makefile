@@ -66,7 +66,7 @@ log:
 
 # HANDY DANDIES:
 # docker run -it gcr.io/eternal-sunset-206422/cw-proxy /bin/bash
-# psql -h /tmp/cloudsql/eternal-sunset-206422:us-central1:umbrella-db -U postgres
+# psql -h /tmp/cloudsql/eternal-sunset-206422:us-central1:master-proxy -U postgres
 
 # sudo google_metadata_script_runner --script-type startup --debug
 

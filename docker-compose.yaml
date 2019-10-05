@@ -2,6 +2,7 @@ version: "3.7"
 services:
 
   front-envoy:
+    container_name: envoy
     build:
       context: .
       dockerfile: Dockerfile-frontenvoy
@@ -17,22 +18,26 @@ services:
       - "80"
       - "443"
       - "8001"
+      - "8081"
+      - "8082"
     ports:
       - "80:80"
       - "443:443"
       - "8001:8001"
+      - "8081:8081"
+      - "8082:8082"
 
   frontend:
+    container_name: frontend
     build:
       context: ./cryptowise_frontend
       dockerfile: Dockerfile
     volumes:
       - ./frontend-envoy.yaml:/etc/frontend-envoy.yaml
-      # - ./cryptowise_frontend/dist:/usr/share/nginx/html
     networks:
       envoymesh:
         aliases:
-          - frontendservice
+          - frontend
     environment:
       - SERVICE_NAME=frontend
     # logging:
@@ -40,7 +45,8 @@ services:
     expose:
       - "80"
 
-  umbrella:
+  api:
+    container_name: api
     build:
       context: ./platform_umbrella
       dockerfile: Dockerfile
@@ -49,44 +55,39 @@ services:
     networks:
       envoymesh:
         aliases:
-          - apiservice
+          - api
     # logging:
     #   driver: gcplogs
     environment:
       - SERVICE_NAME=api
     # depends_on:
-    #   - cloud-sql-proxy
+    #   - cloudsql-proxy
     expose:
       - "80"
 
   # cloud-sql-proxy:
+  #   container_name: cloudsql
   #   image: gcr.io/cloudsql-docker/gce-proxy:1.15
   #   # Port: MySQL (3306), PostgreSQL (5432)
-  #   command: /cloud_sql_proxy -instances=eternal-sunset-206422:us-central1-f:master-proxy=tcp:0.0.0.0:5432
-  #   volumes:
-  #   # this mounts your application default credential on the container, preventing the
-  #   # 'invalid json file "/config": google: read JWT from JSON credentials: 'type' field is "authorized_user" (expected "service_account")'
-  #   # error if you point to the actual credential file directly
-  #   - ~/.config:/root/.config
+  #   command: /cloud_sql_proxy -instances=eternal-sunset-206422:us-central1:umbrella-db=tcp:0.0.0.0:5432
+  #   # volumes:
+  #   # # this mounts your application default credential on the container, preventing the
+  #   # # 'invalid json file "/config": google: read JWT from JSON credentials: 'type' field is "authorized_user" (expected "service_account")'
+  #   # # error if you point to the actual credential file directly
+  #   # - ~/.config:/root/.config
   #   ports:
   #   - 5432:5432
 
+  # cloudsql-proxy:
+  #   container_name: cloudsql
+  #   image: gcr.io/cloudsql-docker/gce-proxy:1.15
+  #   command: /cloud_sql_proxy --dir=/tmp/cloudsql -instances=eternal-sunset-206422:us-central1:umbrella-db=tcp:0.0.0.0:5432 -credential_file=/home/certs
+  #   ports:
+  #     - "127.0.0.1:5432:5432"
+  #   volumes:
+  #     - ./certs/eternal-sunset-206422-27df1759075f.json:/home/certs
+  #     - /tmp/cloudsql:/cloudsql
+  #   restart: always
+
 networks:
   envoymesh: {}
-
-# echo alias docker-compose="'"'docker run --rm \
-#     -v /var/run/docker.sock:/var/run/docker.sock \
-#     -v "$PWD:$PWD" \
-#     -w="$PWD" \
-#     docker/compose:1.24.0'"'
-# alias dcd='docker-compose down'
-# alias dcu='docker-compose up --build'
-# alias rmc='cd ..; rm -rf cryptowise'
-# alias sadd='eval $(ssh-agent -s)'
-# alias pull='git clone --recurse-submodules git@github.com:upstarter/cryptowise.git'
-# b() {
-# dcd; rmc; pull; cd cryptowise; dcu;
-# }
-# alias dfe='docker ps -aqf "name=cryptowise_front-envoy"'
-# alias dfu='docker ps -aqf "name=cryptowise_umbrella"'
-#" >> ~/.bashrc
