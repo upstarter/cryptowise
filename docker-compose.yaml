@@ -10,6 +10,8 @@ services:
       - ./front-envoy.yaml:/etc/front-envoy.yaml
       - ./certs/cryptowise-ai.pem:/etc/cryptowise-ai.pem
       - ./certs/cryptowise-ai.key:/etc/cryptowise-ai.key
+      - ./certs/platform-web.ai.pem:/etc/platform-web.ai.pem
+      - ./certs/platform-web.ai.key:/etc/platform-web.ai.key
     networks:
       - envoymesh
     # logging:
