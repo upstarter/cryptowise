@@ -45,12 +45,12 @@ static_resources:
             virtual_hosts:
             - name: backend
               domains:
-              - "*.cryptowise.ai"
+              - "test.cryptowise.ai"
               routes:
-              - match:
-                  prefix: "/v1"
-                route:
-                  cluster: api
+              # - match:
+              #     prefix: "/v1"
+              #   route:
+              #     cluster: api
               - match:
                   prefix: "/"
                 route:
@@ -65,6 +65,36 @@ static_resources:
                 filename: "/etc/cryptowise-ai.pem"
               private_key:
                 filename: "/etc/cryptowise-ai.key"
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          access_log:
+            - name: envoy.file_access_log
+              config:
+                path: "/var/log/access.log"
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: backend
+              domains:
+              - "team.cryptowise.ai"
+              routes:
+              - match:
+                  prefix: "/v1"
+                route:
+                  cluster: api
+          http_filters:
+          - name: envoy.router
+            config: {}
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            - certificate_chain:
+                filename: "/etc/platform-web.ai.pem"
+              private_key:
+                filename: "/etc/platform-web.ai.key"
   clusters:
   - name: frontend
     connect_timeout: 10s
