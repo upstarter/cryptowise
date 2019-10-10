@@ -11,10 +11,6 @@ static_resources:
           "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
           codec_type: auto
           stat_prefix: ingress_http
-          access_log:
-            - name: envoy.file_access_log
-              config:
-                path: "/var/log/access.log"
           route_config:
             name: local_route
             virtual_hosts:
@@ -40,6 +36,10 @@ static_resources:
         config:
           codec_type: auto
           stat_prefix: ingress_http
+          access_log:
+            - name: envoy.file_access_log
+              config:
+                path: "/var/log/access.log"
           route_config:
             name: local_route
             virtual_hosts:
