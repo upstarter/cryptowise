@@ -4,36 +4,12 @@ static_resources:
       socket_address:
         address: 0.0.0.0
         port_value: 443
-    listener_filters:
-    - name: "envoy.listener.tls_inspector"
-      typed_config: {}
-    filter_chains:
-    - filter_chain_match:
-        server_names: ["cryptowise.ai", "www.cryptowise.ai"]
-      tls_context:
-        common_tls_context:
-          tls_certificates:
-            - certificate_chain:
-                filename: "/etc/cryptowise-ai.pem"
-              private_key:
-                filename: "/etc/cryptowise-ai.key"
-      filters:
-      - name: envoy.http_connection_manager
-        typed_config:
-          "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
-          codec_type: auto
-          stat_prefix: ingress_http
-          route_config:
-            name: local_route
-            virtual_hosts:
-            - name: default
-              domains:
-              - "*"
-              routes:
-              - match: { prefix: "/" }
-                route: { cluster: frontend }
+  listener_filters:
+  - name: "envoy.listener.tls_inspector"
+    typed_config: {}
+  filter_chains:
   - filter_chain_match:
-      server_names: ["team.cryptowise.ai"]
+      server_names: ["cryptowise.ai", "www.cryptowise.ai"]
     tls_context:
       common_tls_context:
         tls_certificates:
@@ -45,14 +21,38 @@ static_resources:
     - name: envoy.http_connection_manager
       typed_config:
         "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+        codec_type: auto
         stat_prefix: ingress_http
         route_config:
+          name: local_route
           virtual_hosts:
           - name: default
-            domains: "*"
+            domains:
+            - "*"
             routes:
-            - match: { prefix: "/v1" }
-              route: { cluster: api }
+            - match: { prefix: "/" }
+              route: { cluster: frontend }
+- filter_chain_match:
+    server_names: ["team.cryptowise.ai"]
+  tls_context:
+    common_tls_context:
+      tls_certificates:
+        - certificate_chain:
+            filename: "/etc/cryptowise-ai.pem"
+          private_key:
+            filename: "/etc/cryptowise-ai.key"
+  filters:
+  - name: envoy.http_connection_manager
+    typed_config:
+      "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+      stat_prefix: ingress_http
+      route_config:
+        virtual_hosts:
+        - name: default
+          domains: "*"
+          routes:
+          - match: { prefix: "/v1" }
+            route: { cluster: api }
   clusters:
   - name: frontend
     connect_timeout: 10s
