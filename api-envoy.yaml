@@ -3,7 +3,7 @@ static_resources:
   - address:
       socket_address:
         address: 0.0.0.0
-        port_value: 443
+        port_value: 80
     filter_chains:
     - filters:
       - name: envoy.http_connection_manager
@@ -23,7 +23,7 @@ static_resources:
               - "*.cryptowise.ai"
               routes:
               - match:
-                  prefix: "/"
+                  prefix: "/v1"
                 route:
                   cluster: local_api
           http_filters:

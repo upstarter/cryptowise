@@ -65,7 +65,7 @@ services:
     # depends_on:
     #   - cloudsql-proxy
     expose:
-      - "443"
+      - "80"
 
   # cloud-sql-proxy:
   #   container_name: cloudsql
