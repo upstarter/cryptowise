@@ -14,7 +14,7 @@ static_resources:
           route_config:
             name: local_route
             virtual_hosts:
-            - name: backend
+            - name: frontend
               domains:
               - "*.cryptowise.ai"
               routes:
