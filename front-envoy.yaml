@@ -73,7 +73,7 @@ static_resources:
     http2_protocol_options: {}
     hosts:
     - socket_address:
-        address: 172.0.0.1
+        address: frontend
         port_value: 80
         http2_protocol_options: {}
     # load_assignment:
@@ -92,7 +92,7 @@ static_resources:
     http2_protocol_options: {}
     hosts:
     - socket_address:
-        address: 172.0.0.1
+        address: api
         port_value: 80
         http2_protocol_options: {}
     # load_assignment:
