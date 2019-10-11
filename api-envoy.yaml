@@ -47,7 +47,7 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: 0.0.0.0
+                address: 127.0.0.1
                 port_value: 443
     tls_context:
       common_tls_context:
