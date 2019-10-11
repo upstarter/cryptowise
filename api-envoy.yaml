@@ -49,8 +49,8 @@ static_resources:
     tls_context:
       common_tls_context:
         tls_certificates:
-          certificate_chain: { "filename": "/etc/platlform-web.ai.pem" }
-          private_key: { "filename": "/etc/platlform-web.ai.key" }
+          certificate_chain: { "filename": "/etc/platform-web.ai.pem" }
+          private_key: { "filename": "/etc/platform-web.ai.key" }
         # validation_context:
         #   trusted_ca:
         #     filename: /etc/ssl/certs/ca-certificates.crt
