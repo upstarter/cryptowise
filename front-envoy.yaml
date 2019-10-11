@@ -72,7 +72,7 @@ static_resources:
     lb_policy: round_robin
     # http2_protocol_options: {}
     load_assignment:
-      cluster_name: local_frontend
+      cluster_name: frontend
       endpoints:
       - lb_endpoints:
         - endpoint:
@@ -86,7 +86,7 @@ static_resources:
     lb_policy: round_robin
     # http2_protocol_options: {}
     load_assignment:
-      cluster_name: local_api
+      cluster_name: api
       endpoints:
       - lb_endpoints:
         - endpoint:
