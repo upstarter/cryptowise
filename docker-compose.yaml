@@ -67,7 +67,6 @@ services:
     expose:
       - "80"
       - "443"
-      - "80:443"
 
   # cloud-sql-proxy:
   #   container_name: cloudsql
