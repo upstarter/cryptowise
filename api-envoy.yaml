@@ -40,10 +40,15 @@ static_resources:
     type: strict_dns
     lb_policy: round_robin
     # http2_protocol_options: {}
-    hosts:
-    - socket_address:
-        address: 127.0.0.1
-        port_value: 443
+    load_assignment:
+      cluster_name: local_api
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: 127.0.0.1
+                port_value: 443
     tls_context:
       common_tls_context:
         tls_certificates:
