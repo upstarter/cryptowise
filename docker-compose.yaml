@@ -56,7 +56,7 @@ services:
     volumes:
       - ./api-envoy.yaml:/etc/api-envoy.yaml
     networks:
-      envoymesh:
+      - envoymesh
         # aliases:
         #   - api
     # logging:
