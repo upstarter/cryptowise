@@ -70,7 +70,7 @@ static_resources:
     connect_timeout: 10s
     type: strict_dns
     lb_policy: round_robin
-    http2_protocol_options: {}
+    # http2_protocol_options: {}
     hosts:
     - socket_address:
         address: frontend
@@ -89,7 +89,7 @@ static_resources:
     connect_timeout: 10s
     type: strict_dns
     lb_policy: round_robin
-    http2_protocol_options: {}
+    # http2_protocol_options: {}
     hosts:
     - socket_address:
         address: api
