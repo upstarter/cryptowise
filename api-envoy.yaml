@@ -37,8 +37,8 @@ static_resources:
   clusters:
   - name: local_api
     connect_timeout: 10s
-    type: STATIC
-    lb_policy: ROUND_ROBIN
+    type: strict_dns
+    lb_policy: round_robin
     # http2_protocol_options: {}
     load_assignment:
       cluster_name: local_api
@@ -47,7 +47,7 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: 127.0.0.1
+                address: 0.0.0.0
                 port_value: 443
     tls_context:
       common_tls_context:
