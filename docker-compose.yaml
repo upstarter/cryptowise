@@ -56,9 +56,9 @@ services:
     volumes:
       - ./api-envoy.yaml:/etc/api-envoy.yaml
     networks:
-      - envoymesh
-        # aliases:
-        #   - api
+      envoymesh:
+        aliases:
+          - api
     # logging:
     #   driver: gcplogs
     environment:
