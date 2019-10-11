@@ -61,8 +61,8 @@ static_resources:
       tls_context:
         common_tls_context:
           tls_certificates:
-            certificate_chain: { "filename": "/etc/platform-web.pem" }
-            private_key: { "filename": "/etc/platform-web.key" }
+            certificate_chain: { "filename": "/etc/cryptowise-ai.pem" }
+            private_key: { "filename": "/etc/cryptowise-ai.key" }
           # validation_context:
           #   trusted_ca:
           #     filename: /etc/ssl/certs/ca-certificates.crt
