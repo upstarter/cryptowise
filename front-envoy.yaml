@@ -103,7 +103,7 @@ admin:
       port_value: 8001
 
 
-
+# curl --cacert ./certs/platform-web.ai.pem https://172.28.0.4/v1/topics -vk
 
 #
 # static_resources:
