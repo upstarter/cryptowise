@@ -29,11 +29,11 @@ static_resources:
           http_filters:
           - name: envoy.router
             typed_config: {}
-    tls_context:
-      common_tls_context:
-        validation_context:
-          trusted_ca:
-            filename: /etc/platform-web.ai.pem
+    # tls_context:
+    #   common_tls_context:
+    #     validation_context:
+    #       trusted_ca:
+    #         filename: /etc/platform-web.ai.pem
   clusters:
   - name: local_api
     connect_timeout: 10s
