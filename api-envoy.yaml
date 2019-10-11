@@ -23,7 +23,7 @@ static_resources:
               - "*.cryptowise.ai"
               routes:
               - match:
-                  prefix: "/v1"
+                  prefix: "/"
                 route:
                   cluster: local_api
           http_filters:
@@ -37,8 +37,8 @@ static_resources:
   clusters:
   - name: local_api
     connect_timeout: 10s
-    type: strict_dns
-    lb_policy: round_robin
+    type: STATIC
+    lb_policy: ROUND_ROBIN
     # http2_protocol_options: {}
     load_assignment:
       cluster_name: local_api
