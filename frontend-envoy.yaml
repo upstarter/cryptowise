@@ -14,7 +14,7 @@ static_resources:
           access_log:
             - name: envoy.file_access_log
               config:
-                path: "/var/log/acce.log"
+                path: "/var/log/access.log"
           route_config:
             name: local_route
             virtual_hosts:

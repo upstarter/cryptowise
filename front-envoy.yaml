@@ -74,7 +74,7 @@ static_resources:
     hosts:
     - socket_address:
         address: frontend
-        port_value: 8
+        port_value: 80
         # http2_protocol_options: {}
     # load_assignment:
     #   cluster_name: frontend
@@ -94,13 +94,6 @@ static_resources:
     - socket_address:
         address: api
         port_value: 80
-    tls_context:
-      common_tls_context:
-        tls_certificates:
-          - certificate_chain:
-              filename: "/etc/platform-web.ai.pem"
-            private_key:
-              filename: "/etc/platform-web.ai.key"
         # http2_protocol_options: {}
     # load_assignment:
     #   cluster_name: api
