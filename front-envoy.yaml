@@ -66,13 +66,13 @@ static_resources:
               private_key:
                 filename: "/etc/cryptowise-ai.key"
   clusters:
-  - name: frontend_service
+  - name: frontend
     connect_timeout: 10s
     type: strict_dns
     lb_policy: round_robin
     # http2_protocol_options: {}
     load_assignment:
-      cluster_name: frontend_service
+      cluster_name: local_frontend
       endpoints:
       - lb_endpoints:
         - endpoint:
@@ -80,13 +80,13 @@ static_resources:
               socket_address:
                 address: frontend
                 port_value: 80
-  - name: api_service
+  - name: api
     connect_timeout: 10s
     type: strict_dns
     lb_policy: round_robin
     # http2_protocol_options: {}
     load_assignment:
-      cluster_name: api_service
+      cluster_name: local_api
       endpoints:
       - lb_endpoints:
         - endpoint:
