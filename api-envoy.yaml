@@ -45,7 +45,7 @@ static_resources:
     hosts:
     - socket_address:
         address: 127.0.0.1
-        port_value: 443
+        port_value: 8080
         # http2_protocol_options: {}
 
 admin:
