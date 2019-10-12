@@ -79,7 +79,7 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: frontend_service
+                address: frontend
                 port_value: 80
   - name: api
     connect_timeout: 10s
@@ -93,7 +93,7 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: api_service
+                address: api1
                 port_value: 80
       tls_context:
         common_tls_context:

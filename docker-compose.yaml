@@ -58,11 +58,11 @@ services:
     networks:
       envoymesh:
         aliases:
-          - api
+          - api1
     # logging:
     #   driver: gcplogs
     environment:
-      - SERVICE_NAME=api
+      - SERVICE_NAME=api1
     # depends_on:
     #   - cloudsql-proxy
     expose:
