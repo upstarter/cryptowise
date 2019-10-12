@@ -47,12 +47,12 @@ static_resources:
               domains:
               - "cryptowise.ai"
               routes:
-              # - match:
-              #     prefix: "/v1"
-              #   route:
-              #     cluster: api
               - match:
-                  prefix: "/"
+                  prefix: "/v1"
+                route:
+                  cluster: api
+              - match:
+                  prefix: "/v2"
                 route:
                   cluster: frontend
           http_filters:
