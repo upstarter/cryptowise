@@ -45,7 +45,7 @@ static_resources:
             virtual_hosts:
             - name: backend
               domains:
-              - "*.cryptowise.ai"
+              - "cryptowise.ai"
               routes:
               - match:
                   prefix: "/v1"
@@ -95,7 +95,7 @@ static_resources:
               socket_address:
                 address: api
                 port_value: 80
-      # tls_context: {}
+      tls_context: {}
 admin:
   access_log_path: "/dev/null"
   address:
