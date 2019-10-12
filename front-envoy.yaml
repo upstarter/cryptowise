@@ -93,7 +93,7 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: api1
+                address: api
                 port_value: 80
       tls_context:
         common_tls_context:
