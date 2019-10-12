@@ -48,7 +48,7 @@ static_resources:
               - "*.cryptowise.ai"
               routes:
               - match:
-                  prefix: "/v1/topics"
+                  prefix: "/v1/"
                 route:
                   cluster: api
               - match:
