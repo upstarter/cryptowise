@@ -46,7 +46,6 @@ services:
     #   driver: gcplogs
     expose:
       - "80"
-      - "443"
 
   api:
     container_name: api
@@ -67,7 +66,6 @@ services:
     #   - cloudsql-proxy
     expose:
       - "80"
-      - "443"
 
   # cloud-sql-proxy:
   #   container_name: cloudsql
