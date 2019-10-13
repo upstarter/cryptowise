@@ -46,6 +46,7 @@ services:
     #   driver: gcplogs
     expose:
       - "80"
+      - "443"
 
   api:
     container_name: api
