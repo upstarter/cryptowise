@@ -67,9 +67,7 @@ static_resources:
           tls_certificates:
             certificate_chain: { "filename": "/etc/cryptowise-ai.pem" }
             private_key: { "filename": "/etc/cryptowise-ai.key" }
-          # validation_context:
-          #   trusted_ca:
-          #     filename: /etc/ssl/certs/ca-certificates.crt
+
   clusters:
   - name: frontend
     connect_timeout: 10s
