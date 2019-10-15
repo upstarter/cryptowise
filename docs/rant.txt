@@ -1,6 +1,9 @@
-<p>
+<h4>
   The tide of centralization/decentralization has once again shifted towards
-  the edge and decentralization. In the early days of computing, centralized
+  the decentralization as edge and fog computing are set to overtake cloud
+  computing.
+</h4> 
+<p>In the early days of computing, centralized
   mainframes owned and operated by centralized organizations ruled the information
   world. Then the personal computer revolution and client/server arose to
   decentralize power. The cloud brought a whole new level of centralization as
