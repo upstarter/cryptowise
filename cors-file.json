@@ -1,8 +1,0 @@
-[
-    {
-      "origin": ["https://admin.cryptowise.ai/"],
-      "responseHeader": ["Content-Type"],
-      "method": ["GET", "HEAD", "POST"],
-      "maxAgeSeconds": 3600
-    }
-]
