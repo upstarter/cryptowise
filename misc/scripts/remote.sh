@@ -42,4 +42,19 @@ dkgo() {
 tails() {
   tail -f tmp/platform_umbrella/var/log/erlang.log*
 }
+dkgo() {
+  docker exec -it $1 /bin/bash
+}
+dkget() {
+  docker ps -aqf "name=$1"
+}
+api() {
+  dkgo $(dkget api)
+}
+envoy() {
+  dkgo $(dkget envoy)
+}
+fe() {
+  dkgo $(dkget frontend)
+}
 " >> ~/.bashrc
