@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: front-envoy
+  name: front-envoy
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: front-envoy
+    spec:
+      containers:
+      - image: front-envoy:latest
+        name: envoy
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 8001
+        - containerPort: 8081
+        - containerPort: 8082
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/front-envoy.yaml
+          name: front-envoy-claim0
+        - mountPath: /etc/cryptowise-ai.pem
+          name: front-envoy-claim1
+        - mountPath: /etc/cryptowise-ai.key
+          name: front-envoy-claim2
+        - mountPath: /etc/platform-web.ai.pem
+          name: front-envoy-claim3
+        - mountPath: /etc/platform-web.ai.key
+          name: front-envoy-claim4
+      restartPolicy: Always
+      volumes:
+      - name: front-envoy-claim0
+        persistentVolumeClaim:
+          claimName: front-envoy-claim0
+      - name: front-envoy-claim1
+        persistentVolumeClaim:
+          claimName: front-envoy-claim1
+      - name: front-envoy-claim2
+        persistentVolumeClaim:
+          claimName: front-envoy-claim2
+      - name: front-envoy-claim3
+        persistentVolumeClaim:
+          claimName: front-envoy-claim3
+      - name: front-envoy-claim4
+        persistentVolumeClaim:
+          claimName: front-envoy-claim4
+status: {}

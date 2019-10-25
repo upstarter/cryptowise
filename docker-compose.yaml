@@ -3,6 +3,7 @@ services:
 
   front-envoy:
     container_name: envoy
+    image: front-envoy:latest
     build:
       context: .
       dockerfile: Dockerfile-frontenvoy
@@ -31,6 +32,7 @@ services:
 
   frontend:
     container_name: frontend
+    image: frontend:latest
     build:
       context: ./cryptowise_frontend
       dockerfile: Dockerfile
@@ -49,6 +51,7 @@ services:
 
   api:
     container_name: api
+    image: api:latest
     build:
       context: ./platform_umbrella
       dockerfile: Dockerfile
