@@ -1,6 +1,8 @@
 [submodule "cryptowise_frontend"]
 	path = cryptowise_frontend
 	url = git@github.com:upstarter/cryptowise_frontend.git
+  branch = master
 [submodule "platform_umbrella"]
 	path = platform_umbrella
 	url = git@github.com:upstarter/platform_umbrella.git
+  branch = master
