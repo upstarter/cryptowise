@@ -1,8 +1,19 @@
+Co-opetition
+from autonomous machine-to-machine communication to autonomous machine-to-machine transaction
+arbitrage of amazon/origin goods backed by crypto-currencies
+incorporate in minutes on the blockchain within minutes, could be default in 10-15 years
+
+CAROUSEL:
+  CODE=SPEECH
+  the network is the computer
+  data -> information -> knowledge -> wisdom
+
+
 <h4>
   The tide of centralization/decentralization has once again shifted towards
   the decentralization as edge and fog computing are set to overtake cloud
   computing.
-</h4> 
+</h4>
 <p>In the early days of computing, centralized
   mainframes owned and operated by centralized organizations ruled the information
   world. Then the personal computer revolution and client/server arose to
