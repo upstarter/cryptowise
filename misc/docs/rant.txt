@@ -1,3 +1,7 @@
+
+A computer where are there game theoretic strong guarantees that the
+code will run as designed and the rules won't change.
+
 Co-opetition
 from autonomous machine-to-machine communication to autonomous machine-to-machine transaction
 arbitrage of amazon/origin goods backed by crypto-currencies
