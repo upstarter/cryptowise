@@ -10,4 +10,4 @@ git submodule update --init platform_umbrella
 ```
 
 ## To update all submodules at once
-`git submodule update --init --recursive`
+`git pull --recurse-submodules`
