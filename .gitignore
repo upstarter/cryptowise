@@ -1,2 +1,4 @@
+
+# secrets
 certs
-**/priv/cert
+platform_umbrella/apps/platform/priv/cert
