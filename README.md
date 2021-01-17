@@ -1,6 +1,9 @@
 # CryptoWise
 > An ecosystem for advanced cryptoasset quantamental traders and investors
 
+<!-- ![](./docs/assets/particle-background.gif) -->
+<img src="./misc/media/color_logo_with_background.png" width="100%" height="200">
+
 This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and Devops. We currenlty use Docker Compose with Envoy Proxy for micro-services. There are plans for Istio and Kubernetes on the Roadmap.
 
 ## When you first clone the project you must pull frontend and backend submodules
