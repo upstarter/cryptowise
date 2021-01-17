@@ -1,5 +1,5 @@
-*.elixir linguist-detectable=true
-*.js linguist-detectable=false
-*.html linguist-detectable=false
-*.json linguist-detectable=false
-*.xml linguist-detectable=false
+*.ex linguist-language=Elixir
+*.js linguist-language=Javascript
+*.html linguist-language=Html
+*.json linguist-language=Json
+*.xml linguist-language=Xml
