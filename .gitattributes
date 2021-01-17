@@ -3,3 +3,4 @@
 *.html linguist-language=Html
 *.json linguist-language=Json
 *.xml linguist-language=Xml
+Makefile linguist-language=Elixir
