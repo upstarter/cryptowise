@@ -1,5 +1,5 @@
 # CryptoWise
-> An ecosystem for advanced cryptoasset quantamental traders and investors
+> An ecosystem for advanced quantamental traders and investors
 
 <!-- ![](./docs/assets/particle-background.gif) -->
 <img src="./misc/media/color_logo_with_background.png" width="100%" height="550">
