@@ -1,0 +1,12 @@
+kind: ServiceEntry
+metadata:
+  name: <%= @app1_name %>
+  namespace: default
+spec:
+  destination:
+    service: <%= @app2_endpoint_url %>
+  ports:
+    - port: 80
+    protocol: http
+    - port: 443
+    protocol: https

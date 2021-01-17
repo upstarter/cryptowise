@@ -1,0 +1,22 @@
+{{- if gt (.Values.maxReplicaCount | int) (.Values.replicaCount | int) }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoScaler
+metadata:
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    environment: "{{ .Values.environment }}"
+    heritage: {{ .Release.Service }}
+    inventoryCode: "{{ .Values.inventoryCode }}"
+    productcode: "{{ .Values.productCode }}"
+    release: {{ .Release.Name }}
+  name: {{ template "fullname" . }}
+spec:
+  maxReplicas: {{ .Values.maxReplicaCount }}
+  minReplicas: {{ .Values.replicaCount }}
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: {{ template "full_name" }}
+  targetCPUUtilizationPercentage: {{ .Values.scalingMetrics.targetCPUUtilizationPercentage }}
+{{- end }}

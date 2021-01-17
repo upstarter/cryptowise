@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: middleware
+  labels:
+    app: middleware
+spec:
+  selector:
+    app: middleware
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http

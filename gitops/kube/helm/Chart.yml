@@ -1,0 +1,6 @@
+name: <%= @master_proxy_name %>
+version: 0.1.0
+description: GitOps Version Control
+maintainers:
+  - name: Your Name
+    twitter: Your Twitter

@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-route
+  namespace: default
+spec:
+  destination:
+    name: frontend
+  route:
+  - labels:
+      version: prod
+  httpReqRetries:
+    simpleRetry:
+      attempts: 3
+      perTryTimeout: 2s
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: middleware-route
+  namespace: default
+spec:
+  destination:
+    name: middleware
+    route:
+    - labels:
+        version: prod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: backend-route
+  namespace: default
+spec:
+  destination:
+    name: backend
+    route:
+    - labels:
+        version: prod

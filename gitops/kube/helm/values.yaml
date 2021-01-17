@@ -1,0 +1,32 @@
+# The name of the application; used for naminb Kube resources
+nameOverride: ""
+
+# Must be either 'us-west-1b' or 'us-east-1'
+region: us-west-1b
+
+
+iamRole: ""
+minReadySeconds: 15
+
+# REQUIRED: Must be one of "digitalocean" or "gcp"
+platform: ""
+
+# if true, the Service will select all Pods of all Releases of the application
+allowCanary: false
+
+environment: dev
+
+# REQUIRED: Place your PRD here, it can be a component or subcomponent PRD.
+productCode: ""
+inventoryCode: ""
+
+# Rule of assign pods to nodes (Anti-Affinity)
+# https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature
+affinity:
+  preferDifferentAZ: false
+
+# Minimum number of Pods to deploy
+replicaCount: 1
+
+# Maximum number of pods to deploy, based on 'scalingMetrics'
+maxReplicaCount: 1

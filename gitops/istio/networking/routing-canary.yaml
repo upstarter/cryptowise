@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: middleware-canary-route
+  namespace: default
+spec:
+  precedence: 1
+  match:
+    request:
+      headers:
+        x-dev-user:
+          exact: string-to-match
+  destination:
+    name: middleware
+  route:
+  - labels:
+    version: canary
+  httpReqRetries:
+    simpleRetry:
+      attempts: 3
+      perTryTimeout: 2s

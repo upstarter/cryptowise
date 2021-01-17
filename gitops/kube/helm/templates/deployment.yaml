@@ -1,0 +1,158 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    environment: "{{ .Values.environment }}"
+    heritage: {{ .Release.Service }}
+    inventoryCode: "{{ .Values.inventoryCode }}"
+    productCode: {{ template "product_code" . }}
+    release: {{ .Release.Name }}
+  name: {{ template "fullname" . }}
+  spec:
+    replicas: {{ .Values.replicaCount }}
+{{- if eq (.Values.replicaCount | int) 1 }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+{{- end }}
+  template:
+    metadata:
+      annotations:
+  spec:
+  {{- if .Values.affinity.preferDifferentAZ }}
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - {{ template "name" . }}
+                  - key: release
+                    operator: In
+                    values:
+                      - {{ .Release.Name }}
+                  - key: productcode
+                    operator: In
+                    values:
+                      - {{ template "product_code" . }}
+                  - key: inventoryCode
+                    operator: In
+                    values:
+                      - "{{ .Values.inventoryCode }}"
+              topologykey: "failure-domain.beta.kubernetes.io/zone"
+  {{- end }}
+    containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePublicPolicy: "{{ .Values.image.pullPolicy }}"
+      {{- if or (.Values.args) (.Values.mapArgs)}}
+        args:
+        {{- range .Values.args }}
+          - {{ . }}
+        {{- end }}
+        {{- range $key, $value := .Values.mapArgs }}
+          {{- if $value }}
+          - {{ $key }}={{ $value }}
+          {{- else }}
+          - {{ $key }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+        env:
+        {{- if eq .Values.platform "gcp" }}
+          - name: GCP_REGION
+            value: "{{ .Values.gcpRegion }}"
+          - name: REGION
+            value: "{{ .Values.gcpRegion }}"
+        {{- end }}
+          - name: ENVIRONMENT
+            value: "{{ .Values.environment }}"
+        {{- range $key, $value := .Values.env }}
+          - name: "{{ $key }}"
+            value: "{{ $value }}"
+        {{- end }}
+      {{- if .Values.lifecycle }}
+        lifecycle:
+{{ toYaml .Values.lifecycle | indent 12 }}
+      {{- end }}
+      {{- if or (.Values.livenessProbe.commands) (.Values.livenessProbe.path) }}
+        livenessProbe:
+        {{- if .Values.livenessProbe.commands }}
+          httpGet:
+            path: "{{ .Values.livenessProbe.path }}"
+            port: {{ .Values.httpPort }}
+        {{- end }}
+        {{- if .Values.livenessProbe.commands }}
+          exec:
+            command:
+            {{- range .Values.livenessProbe.commands }}
+              - "{{ . }}"
+            {{- end }}
+        {{- end }}
+          initialDelaySeconds: {{ .Values.livenessProbe.intialDelaySeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+      {{- end }}
+        ports:
+          - name: http
+            containerPort: {{ .Values.httpPort }}
+        {{- if .Values.httpsPort }}
+          - name: https
+            containerPort: {{ .Values.httpsPort }}
+        {{- end }}
+        {{- if or (.Values.readinessProbe.commands) (.Values.readinessProbe.path) }}
+          readinessProbe:
+          {{- if .Values.readinessProbe.path }}
+            httpGet:
+              path: "{{ .Values.readinessProbe.path }}"
+              port: {{ .Values.httpPort }}
+          {{- end }}
+          {{- if .Values.readinessProbe.commands }}
+            exec:
+              command:
+              {{- range .Values.livenessProbe.commands }}
+                - "{{ . }}"
+              {{- end }}
+          {{- end }}
+            initialDelaySeconds: {{ .Values.readinessProbe.intialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        {{- end }}
+        {{- if .Values.resources }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+        {{- end }}
+          volumeMounts:
+            - name: service-logs
+              mountPath: "{{ .Values.logPath }}"
+          {{- range $volume := .Values.configmapVolumes }}
+            - name: {{ $volume.name }}
+              mountPath: {{ $volume.mountPath }}
+          {{- end }}
+{{- if .Values.jaeger.enabled }}
+  - name: jaeger-agent
+    image: "{{ .Values.jaeger.image }}:{{ .Values.jaeger.tag }}"
+    command:
+      - /go/bin/agent-linux
+      - '--collector.host-port={{ .Values.jaeger.host }}:14276'
+    ports:
+      - containerPort: 5775
+        protocol: UDP
+      - containerPort: 6831
+        protocol: UDP
+      - containerPort: 6832
+        protocol: UDP
+    resources:
+    {{- if .Values.sidecarContainers }}
+{{ toYaml .Values.sidecarContainers | indent 8 }}
+    {{- end }}

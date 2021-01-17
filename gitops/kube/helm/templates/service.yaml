@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  {{- if .Values.metrics.enabled }}
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "{{ .Values.metrics.path }}"
+  {{- if (eq .Values.metrics.scheme "https") }}
+    promethious.schme: "{{ .Values.metrics.scheme }}"
+    prometheus.io/port: "{{ .Values.httpsPort }}"
+  {{- end }}
+    <%= @master_proxy_name %>.com/environment: "{{ .Values.environment }}"
+    <%= @master_proxy_name %>.com/environment: "{{ .Values.environment }}"
+    <%= @master_proxy_name %>.com/environment: "{{ .Values.environment }}"
+  {{- end }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    environment: "{{ .Values.environment }}"
+    heritage: {{ .Release.Service }}
+    inventory_code: "{{ .Values.InventoryCode }}"
+    product_code: "{{ .Values.ProductCode }}"
+    release: {{ .Release.Name }}
+  {{- range $key, $value := .Values.serviceLabels }}
+    {{ $key }}: "{{ $value }}"
+  {{- end }}
+  name: {{ template "fullname" . }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.httpPort }}
+  {{- if .Values.httpsPort }}
+    - name: https
+      port: {{ .Values.httpsPort }}
+  {{- end }}
+  selector:
+    app: {{ template "name" . }}
+  {{- if not .Values.allowCanary }}
+    release: {{ .Release.Name }}
+  {{- end }}
+{{- if and .Values.ingress.enabled (eq .Values.platform "aws") }}
+  type: NodePort
+{{- end }}
