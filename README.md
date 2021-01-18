@@ -1,12 +1,12 @@
 # CryptoWise
 > An ecosystem for advanced quantamental traders and investors
 
-## This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps. We currenlty use Docker Compose with Envoy Proxy for micro-services. Istio and Kubernetes are on the Roadmap.
+This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps. We currenlty use Docker Compose with Envoy Proxy for micro-services. Istio and Kubernetes are on the Roadmap.
 
-## We are looking for contributors! If you interested in mastering the latest technologies to help your ventures capture value, join us in building
+We are looking for contributors! If you interested in mastering the latest technologies to help your ventures capture value, join us in building
 the worlds first distributed and decentralized autonomous system for capturing value from global financial markets.
 
-## We are using the following technologies for the core system (with explanations why):
+##### We are using the following technologies for the core system (with explanations why):
 
 ### Backend
 - [Elixir & OTP](www.elixir-lang.org) - the functional distributed systems and concurrency platform for massive scale and modern web services.
