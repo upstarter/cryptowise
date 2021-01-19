@@ -1,13 +1,23 @@
 # CryptoWise
-> An ecosystem for advanced quantamental traders and investors
+> An ecosystem for quantamental traders and investors
 
-This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps. We currenlty use Docker Compose with Envoy Proxy for micro-services. Istio and Kubernetes are on the Roadmap.
+<button><a href="https://www.cryptowise.ai" width="25"/>Visit the Website</a></button>
 
-We are looking for contributors! If you interested in mastering the latest technologies to help your ventures capture value, join us in building
-the worlds first distributed and decentralized autonomous system for capturing value from global financial markets.
+This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps infrastructure as code with Terraform. Envoy Proxy, Kubernetes, Istio.
+
+We are looking for contributors! If you interested in learning the latest technologies, join us in building
+a distributed and decentralized autonomous system for capturing value from global financial markets.
+
+Fork It:
+[fork](https://github.com/upstarter/cryptowise/fork)
+
+Watch/ Follow:
+[watch](https://github.com/upstarter/cryptowise/subscription)
+
+Create Issues:
+[create issue](https://github.com/upstarter/cryptowise/issues/new)
 
 ## We are using the following technologies for the core system (with explanations why):
-If you are interested in learning the latest WealthTech algorithms and development tools like elixir, microservices, and gitops, contributing to this project would be a good opportunity to do so.
 
 ### Backend
 - [Elixir & OTP](www.elixir-lang.org) - the functional distributed systems and concurrency platform for massive scale and modern web services.
@@ -19,7 +29,7 @@ If you are interested in learning the latest WealthTech algorithms and developme
 - [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - responsive layouts made easy
 - [Ant Design](www.ant.design) - Ideal framework for mobile and web quant heavy designs (build by ant financial)
 
-### Gitops (the new devops)
+### Gitops
 - [Docker Compose](www.docker.com) - bootstrapped microservices
 - [Envoy](www.envoyproxy.io) - the sidecar web proxy for modern microservice architectures (nginx on steroids with builtin TLS, GRPC, circuit breakers, etc..)
 - [Terraform](www.terraform.io) - infrastructure as code for gitops
@@ -28,6 +38,8 @@ If you are interested in learning the latest WealthTech algorithms and developme
 - [Helm](www.helm.sh) - Power tools for Kubernetes
  <!-- ![](./docs/assets/particle-background.gif) -->
 <img src="./misc/media/color_logo_with_background.png" width="100%" height="550">
+
+If you are interested in learning the latest WealthTech algorithms and adding skills like new development tools (elixir, microservices, react, and gitops), contributing to this project would be a good opportunity for you to pick them up.
 
 ## To update all submodules at once
 `git pull --recurse-submodules`
