@@ -1,9 +1,16 @@
 # CryptoWise
 > An ecosystem for quantamental traders and investors
 
-<button><a href="https://www.cryptowise.ai" width="25"/>Visit the Website</a></button>
-
 This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps infrastructure as code with Terraform. Envoy Proxy, Kubernetes, Istio.
+
+The website is end-to-end encrypted and lives on Google Cloud Platform in their docker optimized containers:
+
+[<img src="./misc/media/sign_up.png" height="40" width="85"/>](https://www.cryptowise.ai/signup)
+
+<!-- Watch this Project:
+
+[<img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="25"/>](https://github.com/upstarter/cryptowise/subscription)
+ -->
 
 We are looking for contributors! If you interested in learning the latest technologies, join us in building
 a distributed and decentralized autonomous system for capturing value from global financial markets.
@@ -48,4 +55,17 @@ If you are interested in learning the latest WealthTech algorithms and adding sk
 ```
 git submodule update --init cryptowise_frontend
 git submodule update --init platform_umbrella
+```
+
+Building and Running the system:
+To build and run the frontend standalone, cd into cryptowise_frontend and run:
+```
+yarn build
+yarn start
+```
+This runs webpack-dev-server on localhost:8081 for local development.
+
+To run the whole system in the docker environment:
+```
+docker-compose up --build
 ```
