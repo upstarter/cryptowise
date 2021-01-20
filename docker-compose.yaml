@@ -9,11 +9,11 @@ services:
       dockerfile: Dockerfile-frontenvoy
     volumes:
       - ./front-envoy.yaml:/etc/front-envoy.yaml
-      - ../certs/cryptowise-ai.pem:/etc/cryptowise-ai.pem
-      - ../certs/cryptowise-ai.key:/etc/cryptowise-ai.key
-      - ../certs/cryptowise-cacert.pem:/etc/cryptowise-cacert.pem
-      - ../certs/platform-web.ai.pem:/etc/platform-web.ai.pem
-      - ../certs/platform-web.ai.key:/etc/platform-web.ai.key
+      - ./certs/cryptowise-ai.pem:/etc/ssl/certs/cryptowise-ai.pem
+      - ./certs/cryptowise-ai.key:/etc/ssl/certs/cryptowise-ai.key
+      - ./certs/cryptowise-cacert.pem:/etc/ssl/certs/cryptowise-cacert.pem
+      - ./certs/platform-web.ai.pem:/etc/ssl/certs/platform-web.ai.pem
+      - ./certs/platform-web.ai.key:/etc/ssl/certs/platform-web.ai.key
     networks:
       - envoymesh
     # logging:
@@ -30,6 +30,8 @@ services:
       - "8001:8001"
       - "8081:8081"
       - "8082:8082"
+    environment:
+      - "ENVOY_UID=0"
 
   frontend:
     container_name: frontend

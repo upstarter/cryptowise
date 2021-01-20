@@ -1,5 +1,5 @@
 FROM envoyproxy/envoy:v1.17.0
 
 RUN apt-get update && apt-get -q install -y \
-    curl
+    curl wget
 CMD /usr/local/bin/envoy -c /etc/front-envoy.yaml --service-cluster front-proxy --component-log-level "upstream:debug"
