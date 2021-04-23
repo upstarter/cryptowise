@@ -37,7 +37,8 @@ static_resources:
                 - PATCH
                 - PUT
                 allow_credentials: true
-
+                allow_headers:
+                  - "*"
           http_filters:
           - name: envoy.filters.http.router
             typed_config: {}

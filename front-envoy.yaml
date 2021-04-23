@@ -51,9 +51,9 @@ static_resources:
                 allow_credentials: true
                 allow_headers:
                   - "*"
-                    http_filters:
-                    - name: envoy.router
-                      typed_config: {}
+          http_filters:
+          - name: envoy.router
+            typed_config: {}
 
   - name: listener_443
     address:
