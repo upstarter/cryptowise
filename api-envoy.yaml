@@ -27,9 +27,9 @@ static_resources:
                   prefix: "/v1"
                 route:
                   cluster: local_api
-              cors:
-                allow_origin_string_match:
-                  exact: "https://www.cryptowise.ai"
+              # cors:
+              #   allow_origin_string_match:
+              #     exact: "https://www.cryptowise.ai"
 
           http_filters:
           - name: envoy.filters.http.router
