@@ -32,7 +32,7 @@ static_resources:
                   exact: "*"
                 allow_credentials: true
                 allow_headers:
-                  - "Access-Control-Allow-Origin"
+                - "Access-Control-Allow-Origin"
           http_filters:
           - name: envoy.filters.http.router
             typed_config: {}
