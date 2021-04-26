@@ -50,7 +50,7 @@ services:
     # logging:
     #   driver: gcplogs
     expose:
-      - "80"
+      - "8082"
 
   api:
     container_name: api
