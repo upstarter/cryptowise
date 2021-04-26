@@ -27,10 +27,10 @@ static_resources:
                   prefix: "/v1"
                 route:
                   cluster: local_api
-              cors:
-                allow_origin_string_match:
-                  prefix: "https://www.cryptowise.ai"
-                allow_credentials: true
+              # cors:
+              #   allow_origin_string_match:
+              #     prefix: "https://www.cryptowise.ai"
+              #   allow_credentials: true
                 # allow_headers:
                 # - "Access-Control-Allow-Origin"
           http_filters:
