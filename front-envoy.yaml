@@ -39,12 +39,6 @@ static_resources:
                 redirect:
                   path_redirect: "/"
                   https_redirect: true
-              # cors:
-              #   allow_origin_string_match:
-              #     exact: "*"
-              #   allow_credentials: true
-              #   allow_headers:
-              #     - "Access-Control-Allow-Origin"
           http_filters:
           - name: envoy.router
             typed_config: {}
