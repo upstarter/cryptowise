@@ -34,6 +34,10 @@ static_resources:
                   prefix: "/"
                 route:
                   cluster: local_frontend
+                  cors:
+                    allow_origin_string_match:
+                      exact: "*"
+                    allow_credentials: true
           http_filters:
           - name: envoy.filters.http.router
   clusters:
