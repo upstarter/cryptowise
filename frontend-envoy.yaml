@@ -36,7 +36,7 @@ static_resources:
                   cluster: local_frontend
                   cors:
                     allow_origin_string_match:
-                      exact: "*"
+                      prefix: "https://www.cryptowise.ai"
                     allow_credentials: true
           http_filters:
           - name: envoy.filters.http.router

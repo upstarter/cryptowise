@@ -76,7 +76,7 @@ static_resources:
                   cluster: api
                   cors:
                     allow_origin_string_match:
-                      exact: "*"
+                      prefix: "https://www.cryptowise.ai"
                     allow_credentials: true
                   # retry_policy:
                   #   retry_on: connect-failure

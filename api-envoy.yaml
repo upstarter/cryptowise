@@ -27,9 +27,6 @@ static_resources:
                   prefix: "/v1"
                 route:
                   cluster: local_api
-
-                # allow_headers:
-                # - "Access-Control-Allow-Origin"
           http_filters:
           - name: envoy.filters.http.router
             typed_config: {}
