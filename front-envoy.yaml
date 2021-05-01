@@ -91,7 +91,6 @@ static_resources:
                   cluster: frontend
           http_filters:
           - name: envoy.filters.http.cors
-            typed_config: {}
           - name: envoy.filters.http.router
 
       transport_socket:
