@@ -74,9 +74,7 @@ static_resources:
                   prefix: "/v1"
                 route:
                   cluster: api
-          http_filters:
-          - name: envoy.filters.http.router
-            typed_config: {}
+
                   # cors:
                   #   allow_origin_string_match:
                   #     prefix: "*"
@@ -91,6 +89,9 @@ static_resources:
                   prefix: "/"
                 route:
                   cluster: frontend
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config: {}
       transport_socket:
         name: envoy.transport_sockets.tls
         typed_config:
