@@ -78,6 +78,8 @@ static_resources:
                     allow_origin_string_match:
                       prefix: "https://www.cryptowise.ai"
                     allow_credentials: true
+                    allow_methods: 'GET, HEAD, POST, PUT, DELETE, PATCH, OPTIONS' always;
+                    allow_headers: 'Authorization,Accept,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Host,Origin,Referer,User-Agent,X-Requested-With,X-CSRF-TOKEN'
                   # retry_policy:
                   #   retry_on: connect-failure
                   #   num_retries: 5
