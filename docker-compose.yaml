@@ -50,7 +50,7 @@ services:
     # logging:
     #   driver: gcplogs
     expose:
-      - "8082"
+      - "80"
 
   api:
     container_name: api
@@ -71,7 +71,7 @@ services:
     # depends_on:
     #   - cloudsql-proxy
     expose:
-      - "8081"
+      - "80"
 
   # cloud-sql-proxy:
   #   container_name: cloudsql
