@@ -34,9 +34,9 @@ static_resources:
                   #   allow_methods: "GET, HEAD, POST, PUT, DELETE, PATCH, OPTIONS"
                   #   allow_headers: "Authorization,Accept,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Host,Origin,Referer,User-Agent,X-Requested-With,X-CSRF-TOKEN"
           http_filters:
-          - name: envoy.filters.http.router
-            typed_config: {}
           - name: envoy.filters.http.cors
+            typed_config: {}
+          - name: envoy.filters.http.router
             typed_config: {}
   clusters:
   - name: local_api
