@@ -30,7 +30,7 @@ services:
       - "8082:8082"
     environment:
       - "ENVOY_UID=0"
-    # command: "apt-get update && apt-get install net-tools"
+    # command: "apt-get update -y && apt-get install net-tools"
     
   frontend:
     container_name: frontend
@@ -78,8 +78,7 @@ services:
       - SERVICE_NAME=api
     expose:
       - "8081"
-
-    command: "apt-get update && apt-get install -y net-tools postgresql-client"
+    command: "apt-get update -y && apt-get install -y -q net-tools postgresql-client"
   
   postgres_db:
       container_name: postgres_db
@@ -89,15 +88,18 @@ services:
         dockerfile: Dockerfile-postgres_db
       restart: always
       volumes:
+        - ./db-envoy.yaml:/etc/db-envoy.yaml
         - ./postgres-data:/var/run/postgresql
         - ./dump_11_15_2021.sql:/tmp/dump_11_15_2021.sql
         # copy the sql script to create tables
-        - ./sql/create_tables.sql:/docker-entrypoint-initdb.d
+        - ./sql/create_tables:/docker-entrypoint-initdb.d
       environment:
         - POSTGRES_PASSWORD=postgres
         - SERVICE_NAME=postgres_db
       networks:
         envoymesh:
+          aliases:
+            - postgres_db
       command: postgres
 
   # cloud-sql-proxy:
