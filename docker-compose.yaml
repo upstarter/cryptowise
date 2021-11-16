@@ -90,6 +90,7 @@ services:
       restart: always
       volumes:
         - ./postgres-data:/var/run/postgresql
+        - ./dump_11_15_2021.sql:/tmp/dump_11_15_2021.sql
         # copy the sql script to create tables
         - ./sql/create_tables.sql:/docker-entrypoint-initdb.d
       environment:
