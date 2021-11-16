@@ -58,6 +58,7 @@ services:
       context: ./platform_umbrella
       dockerfile: Dockerfile
     volumes:
+      - ./postgres-data:/var/run/postgresql
       - ./api-envoy.yaml:/etc/api-envoy.yaml
     networks:
       envoymesh:
@@ -88,9 +89,9 @@ services:
         dockerfile: Dockerfile-postgres_db
       restart: always
       volumes:
-        - ./db-envoy.yaml:/etc/db-envoy.yaml
         - ./postgres-data:/var/run/postgresql
-        - ./dump_11_15_2021.sql:/tmp/dump_11_15_2021.sql
+        - ./db-envoy.yaml:/etc/db-envoy.yaml
+        - ./sql/create_tables/dump_11_15_2021.sql:/tmp/dump_11_15_2021.sql
         # copy the sql script to create tables
         - ./sql/create_tables:/docker-entrypoint-initdb.d
       environment:
