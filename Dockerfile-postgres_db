@@ -6,3 +6,5 @@ COPY --from=build-stage /usr/local/bin/envoy /usr/local/bin
 
 RUN apt-get update && apt-get -q install -y \
     curl wget net-tools
+
+CMD /usr/local/bin/envoy -c /etc/db-envoy.yaml --service-cluster postgres_db --component-log-level upstream:debug,connection:trace
