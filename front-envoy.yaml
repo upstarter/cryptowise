@@ -1,10 +1,3 @@
-admin:
-  access_log_path: /dev/stdout
-  address:
-    socket_address:
-      address: 0.0.0.0
-      port_value: 8001
-
 static_resources:
   listeners:
   - name: listener_80
@@ -135,20 +128,14 @@ static_resources:
               socket_address:
                 address: api
                 port_value: 80
-    # transport_socket:
-    #   name: envoy.transport_sockets.tls
-    #   typed_config:
-    #     "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-    #     # require_client_certificate: true
-    #     common_tls_context:
-    #       # validation_context:
-    #       #   trusted_ca:
-    #       #     filename: "/etc/ssl/certs/ca-certificates.crt"
-    #       tls_certificates:
-    #         certificate_chain:
-    #           filename: "/etc/ssl/certs/cryptowise-ai.pem"
-    #         private_key:
-    #           filename: "/etc/ssl/certs/cryptowise-ai.key"
+
+admin:
+  access_log_path: /dev/stdout
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001
+
 # from instance:
 # curl --cacert ./certs/platform-web.ai.pem https://172.28.0.4/v1/topics -vk
 

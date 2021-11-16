@@ -21,18 +21,17 @@ services:
     expose:
       - "80"
       - "443"
-      - "8001"
       - "8081"
       - "8082"
     ports:
       - "80:80"
       - "443:443"
-      - "8001:8001"
       - "8081:8081"
       - "8082:8082"
     environment:
       - "ENVOY_UID=0"
-
+    # command: "apt-get update && apt-get install net-tools"
+    
   frontend:
     container_name: frontend
     image: frontend:latest
@@ -64,14 +63,41 @@ services:
       envoymesh:
         aliases:
           - api
+    depends_on:
+      - postgres_db
+    links:
+      - postgres_db
     # logging:
     #   driver: gcplogs
     environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGPASSWORD=postgres
+      - POSTGRES_DB=platform_prod
+      - DATABASE_URL=postgres_db
       - SERVICE_NAME=api
-    # depends_on:
-    #   - cloudsql-proxy
     expose:
       - "8081"
+
+    command: "apt-get update && apt-get install -y net-tools postgresql-client"
+  
+  postgres_db:
+      container_name: postgres_db
+      image: postgres:latest
+      build:
+        context: .
+        dockerfile: Dockerfile-postgres_db
+      restart: always
+      volumes:
+        - ./postgres-data:/var/run/postgresql
+        # copy the sql script to create tables
+        - ./sql/create_tables.sql:/docker-entrypoint-initdb.d
+      environment:
+        - POSTGRES_PASSWORD=postgres
+        - SERVICE_NAME=postgres_db
+      networks:
+        envoymesh:
+      command: postgres
 
   # cloud-sql-proxy:
   #   container_name: cloudsql

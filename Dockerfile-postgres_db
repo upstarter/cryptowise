@@ -1,0 +1,8 @@
+FROM envoyproxy/envoy:v1.17.0 as build-stage
+
+FROM postgres:latest as production-build
+COPY --from=build-stage /etc/envoy /etc/envoy/
+COPY --from=build-stage /usr/local/bin/envoy /usr/local/bin
+
+RUN apt-get update && apt-get -q install -y \
+    curl wget net-tools
