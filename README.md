@@ -3,7 +3,7 @@
 
 This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps infrastructure as code with Terraform. Envoy Proxy, Kubernetes, Istio.
 
-The website is end-to-end encrypted and lives on Google Cloud Platform in their docker optimized containers:
+The website is end-to-end encrypted and lives on Google Cloud Platform in docker optimized containers:
 
 [<img src="./misc/media/sign_up.png" height="40" width="85"/>](https://www.cryptowise.ai/signup)
 
