@@ -1,7 +1,7 @@
 # CryptoWise
 > An ecosystem for quantamental traders and investors
 
-This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps infrastructure as code. Envoy Proxy, Kubernetes, Istio.
+This is the ecosystem MonoRepo with Elixir Backend, React Frontend, and GitOps. Envoy Proxy, Kubernetes, Istio.
 
 The website is end-to-end encrypted and lives on Google Cloud Platform in docker optimized containers:
 
